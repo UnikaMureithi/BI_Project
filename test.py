@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
 
+
 def preprocess_input(input_data):
     # Convert input data to DataFrame
     df = pd.DataFrame([input_data])
