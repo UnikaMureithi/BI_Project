@@ -6,7 +6,7 @@ In this project, the training data consists of a subset of the dataset, excludin
 In this project, the validation data would help to optimize the model's performance and make decisions about the choice of algorithms, feature engineering, and hyperparameter tuning. The testing data should represent data that the model has never seen during training or validation, making it a reliable indicator of how well the model will perform in real-world scenarios. The testing data provided an estimate of the model's predictive accuracy and its ability to assess the risk of CVDs on unseen data, which is crucial for reliability.
 
 #### 136017_Prediction_Model.ipynb (Jupyter Notebook File):
-The contents of this notebook show a clear breakdown of how each of the Labs learnt in class was applied specifically to this project, as aligned with knowledge discovery in databases (KDD).
+This file can easily be viewed as a markdown. The contents of this notebook show a clear breakdown of how each of the Labs learnt in class was applied specifically to this project, as aligned with knowledge discovery in databases (KDD).
 * Data Selection
 * Data Cleansing and Pre-Processing
 * Exploratory Data Analysis
