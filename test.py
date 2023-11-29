@@ -3,9 +3,45 @@ import json
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
+
+def preprocess_input(input_data):
+    # Convert input data to DataFrame
+    df = pd.DataFrame([input_data])
+
+    # Define numerical features for scaling
+    numerical_features = ['age', 'height', 'weight', 'ap_hi', 'ap_lo']
+
+    # Initialize scaler
+    scaler = StandardScaler()
+
+    # Scale numerical features
+    df[numerical_features] = scaler.fit_transform(df[numerical_features])
+
+    # Handle categorical features
+    categorical_features = ['gender', 'cholesterol', 'gluc', 'smoke', 'alco', 'active']
+    df[categorical_features] = df[categorical_features].astype(str)  # Convert to string before one-hot encoding
+
+    # Ensure that all expected columns are present
+    expected_columns = numerical_features + categorical_features
+    missing_columns = set(expected_columns) - set(df.columns)
+
+    # Add missing columns with dummy values
+    for column in missing_columns:
+        df[column] = 0
+
+    # Reorder columns to match the model's expected order
+    df = df[expected_columns]
+
+    # Convert DataFrame to dictionary
+    input_dict = df.to_dict(orient='records')[0]
+
+    return input_dict
+
+
+
 def get_prediction(input_data):
     # Send a POST request to the Flask API
-    url = "https://36e7-41-80-116-75.ngrok-free.app/predict"
+    url = "https://7d26-197-139-46-5.ngrok-free.app/predict"
     headers = {"Content-Type": "application/json"}
     
     try:
@@ -27,33 +63,30 @@ def get_prediction(input_data):
         # Handle JSON decoding error
         return {"error": "Could not parse response as JSON"}
 
-def preprocess_input(input_data):
-    # Convert input data to a dictionary if not already
-    if not isinstance(input_data, dict):
-        input_data = {
-            "age": input_data[0],
-            "height": input_data[1],
-            "weight": input_data[2],
-            "gender": input_data[3],
-            "ap_hi": input_data[4],
-            "ap_lo": input_data[5],
-            "cholesterol": input_data[6],
-            "gluc": input_data[7],
-            "smoke": input_data[8],
-            "alco": input_data[9],
-            "active": input_data[10]
-        }
 
-    # Perform any necessary preprocessing (scaling, one-hot encoding, etc.)
-    scaler = StandardScaler()
-    numerical_features = ['age', 'height', 'weight', 'ap_hi', 'ap_lo']
-    input_data[numerical_features] = scaler.fit_transform(pd.DataFrame(input_data, index=[0])[numerical_features])
+# if __name__ == "__main__":
+#     # Example user input
+#     user_input = {
+#         "age": 40,
+#         "height": 160,
+#         "weight": 70,
+#         "gender": 1,
+#         "ap_hi": 120,
+#         "ap_lo": 80,
+#         "cholesterol": 1,
+#         "gluc": 1,
+#         "smoke": 0,
+#         "alco": 0,
+#         "active": 1
+#     }
 
-    # Handle categorical features if any
-    categorical_features = ['gender', 'cholesterol', 'gluc', 'smoke', 'alco', 'active']
-    input_data = pd.get_dummies(pd.DataFrame(input_data, index=[0]), columns=categorical_features, drop_first=True)
+#     # Get the prediction
+#     prediction = get_prediction(user_input)
 
-    return input_data
+#     # Print the prediction
+#     print("Prediction:", prediction)
+
+
 
 if __name__ == "__main__":
     # Ask the user for input data
