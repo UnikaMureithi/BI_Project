@@ -16,7 +16,7 @@ The contents of this notebook show a clear breakdown of how each of the Labs lea
 * Model Consolidation
 
 ### Model Consolidation Using Ngrok
-To make the trained model accessible for predictions, the Flask API has been deployed using Ngrok for tunneling. The consolidated model can be accessed using the following URL: https://c90e-41-80-113-166.ngrok-free.app.
+To make the trained model accessible for predictions, the Flask API has been deployed using Ngrok for tunneling. The consolidated model can be accessed using the following URL: https://e135-197-139-46-5.ngrok-free.app -> http://localhost:5000
 
 ### To test the Model:
 Utulize the ```test.py``` file to test the deployed model. Run the script and follow along with the promts whereby one is supposed to input the reuired data. The script will send a POST request to the deployed API and print the prediction of Absence or Presence of CVD.
