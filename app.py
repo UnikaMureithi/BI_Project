@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import pickle  # Assuming you used joblib for saving the model, you can also use 'pickle' if that's what you used
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
-from pyngrok import ngrok
+# from pyngrok import ngrok
 
 app = Flask(__name__)
 
